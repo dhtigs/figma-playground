@@ -1,12 +1,13 @@
 import DraggableText from "@/components/DraggableText";
 import LiveClock from "@/components/LiveClock";
 import ScrollStatement from "@/components/ScrollStatement";
+import FeaturedWork from "@/components/FeaturedWork";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Nav */}
-      <nav className="flex items-center justify-between px-8 py-6">
+      <nav className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-8 py-6 bg-background/80 backdrop-blur-sm">
         <span className="font-mono text-sm font-bold tracking-wider uppercase">Andy Reff</span>
         <LiveClock />
         <div className="flex gap-8">
@@ -16,29 +17,25 @@ const Index = () => {
       </nav>
 
       {/* Hero */}
-      <main className="flex-1 flex flex-col items-center justify-center gap-6 px-4 pb-24">
-        {/* Tagline top */}
+      <main className="flex-1 flex flex-col items-center justify-center gap-6 px-4 pb-24 min-h-screen pt-24">
         <DraggableText cursorLabel="You">
           <p className="font-mono text-sm tracking-[0.3em] uppercase text-muted-foreground text-center">
             Navigating the unknown, pixel by pixel.
           </p>
         </DraggableText>
 
-        {/* Big name - filled */}
         <DraggableText cursorLabel="You" className="mt-4">
           <h1 className="font-display font-bold text-[clamp(4rem,12vw,12rem)] leading-[0.9] tracking-tighter text-foreground text-center select-none">
             ANDY
           </h1>
         </DraggableText>
 
-        {/* Big name - outlined */}
         <DraggableText cursorLabel="Andy Reff">
           <h1 className="font-display font-bold text-[clamp(4rem,12vw,12rem)] leading-[0.9] tracking-tighter text-outline text-center select-none">
             REFF
           </h1>
         </DraggableText>
 
-        {/* Tagline bottom */}
         <DraggableText cursorLabel="You">
           <p className="font-mono text-lg text-muted-foreground text-center mt-4 italic">
             Navigating the unknown, pixel by pixel
@@ -49,8 +46,11 @@ const Index = () => {
       {/* Scroll Statement Section */}
       <ScrollStatement />
 
+      {/* Featured Work */}
+      <FeaturedWork />
+
       {/* Ask my work button */}
-      <div className="fixed bottom-8 right-8">
+      <div className="fixed bottom-8 right-8 z-40">
         <button className="px-6 py-3 bg-primary text-primary-foreground font-mono text-sm font-bold rounded-full tracking-wider hover:scale-105 transition-transform shadow-lg shadow-primary/20">
           ✦ Ask my work ⌘K
         </button>
