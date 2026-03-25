@@ -48,7 +48,7 @@ const ProjectCard = ({
 }: {
   project: (typeof projects)[0];
 }) => (
-  <div className="bg-card rounded-lg overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[500px]">
+  <div className="bg-card rounded-lg overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[520px]">
     {/* Left side - info */}
     <div className="p-8 lg:p-12 flex flex-col justify-between">
       <div>
@@ -105,7 +105,7 @@ const FeaturedWork = () => {
   return (
     <section id="work" className="px-8 pb-8">
       {/* Section header */}
-      <div className="mb-12 flex items-baseline gap-4">
+      <div className="mb-4 flex items-baseline gap-4">
         <h2 className="font-display font-bold text-[clamp(2.5rem,6vw,5rem)] leading-none tracking-tighter text-foreground uppercase">
           FEATURED{" "}
           <span className="text-outline">WORK</span>
