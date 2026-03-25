@@ -2,6 +2,7 @@ import DraggableText from "@/components/DraggableText";
 import LiveClock from "@/components/LiveClock";
 import ScrollStatement from "@/components/ScrollStatement";
 import FeaturedWork from "@/components/FeaturedWork";
+import WorkedWith from "@/components/WorkedWith";
 
 const Index = () => {
   return (
@@ -48,6 +49,9 @@ const Index = () => {
 
       {/* Featured Work */}
       <FeaturedWork />
+
+      {/* Worked With */}
+      <WorkedWith />
 
       {/* Ask my work button */}
       <div className="fixed bottom-8 right-8 z-40">
