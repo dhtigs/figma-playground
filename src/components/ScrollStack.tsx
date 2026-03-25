@@ -66,8 +66,8 @@ const ScrollStack = ({ children }: ScrollStackProps) => {
       className="relative"
       style={{ height: `${(itemCount + 1) * 100}vh` }}
     >
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden px-8">
-        <div className="relative w-full max-w-6xl">
+      <div className="sticky top-0 h-screen flex items-end justify-center overflow-hidden pb-8">
+        <div className="relative w-full max-w-[1400px]" style={{ height: '75vh' }}>
           {items.map((child, i) => (
             <div
               key={i}
