@@ -1,5 +1,6 @@
 import DraggableText from "@/components/DraggableText";
 import LiveClock from "@/components/LiveClock";
+import ScrollStatement from "@/components/ScrollStatement";
 
 const Index = () => {
   return (
