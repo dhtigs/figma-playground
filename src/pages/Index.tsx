@@ -1,5 +1,6 @@
 import DraggableText from "@/components/DraggableText";
 import LiveClock from "@/components/LiveClock";
+import ScrollStatement from "@/components/ScrollStatement";
 
 const Index = () => {
   return (
@@ -44,6 +45,9 @@ const Index = () => {
           </p>
         </DraggableText>
       </main>
+
+      {/* Scroll Statement Section */}
+      <ScrollStatement />
 
       {/* Ask my work button */}
       <div className="fixed bottom-8 right-8">
