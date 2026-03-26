@@ -15,9 +15,10 @@ const Index = () => {
       <nav className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-8 py-6 bg-background/80 backdrop-blur-sm">
         <span className="font-mono text-sm font-bold tracking-wider uppercase">Andy Reff</span>
         <LiveClock />
-        <div className="flex gap-8">
+        <div className="flex items-center gap-6">
           <a href="#work" className="font-mono text-sm tracking-wider uppercase text-muted-foreground hover:text-foreground transition-colors">Work</a>
           <a href="#about" className="font-mono text-sm tracking-wider uppercase text-muted-foreground hover:text-foreground transition-colors">About</a>
+          <ThemeToggle />
         </div>
       </nav>
 
