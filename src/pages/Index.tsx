@@ -4,6 +4,7 @@ import ScrollStatement from "@/components/ScrollStatement";
 import FeaturedWork from "@/components/FeaturedWork";
 import WorkedWith from "@/components/WorkedWith";
 import HeroDoodles from "@/components/HeroDoodles";
+import IndiaSection from "@/components/IndiaSection";
 
 const Index = () => {
   return (
@@ -54,6 +55,9 @@ const Index = () => {
 
       {/* Worked With */}
       <WorkedWith />
+
+      {/* India Section */}
+      <IndiaSection />
 
       {/* Ask my work button */}
       <div className="fixed bottom-8 right-8 z-40">
