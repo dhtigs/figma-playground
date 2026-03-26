@@ -6,6 +6,7 @@ import WorkedWith from "@/components/WorkedWith";
 import HeroDoodles from "@/components/HeroDoodles";
 import SkillsShelf from "@/components/SkillsShelf";
 import ContactSection from "@/components/ContactSection";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Index = () => {
   return (
