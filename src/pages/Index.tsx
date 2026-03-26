@@ -56,6 +56,9 @@ const Index = () => {
       {/* Worked With */}
       <WorkedWith />
 
+      {/* India Section */}
+      <IndiaSection />
+
       {/* Ask my work button */}
       <div className="fixed bottom-8 right-8 z-40">
         <button className="px-6 py-3 bg-primary text-primary-foreground font-mono text-sm font-bold rounded-full tracking-wider hover:scale-105 transition-transform shadow-lg shadow-primary/20">
