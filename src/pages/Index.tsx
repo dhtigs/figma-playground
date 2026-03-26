@@ -4,6 +4,7 @@ import ScrollStatement from "@/components/ScrollStatement";
 import FeaturedWork from "@/components/FeaturedWork";
 import WorkedWith from "@/components/WorkedWith";
 import HeroDoodles from "@/components/HeroDoodles";
+import IndiaSection from "@/components/IndiaSection";
 
 const Index = () => {
   return (
