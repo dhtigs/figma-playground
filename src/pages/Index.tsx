@@ -3,6 +3,7 @@ import LiveClock from "@/components/LiveClock";
 import ScrollStatement from "@/components/ScrollStatement";
 import FeaturedWork from "@/components/FeaturedWork";
 import WorkedWith from "@/components/WorkedWith";
+import HeroDoodles from "@/components/HeroDoodles";
 
 const Index = () => {
   return (
@@ -18,7 +19,8 @@ const Index = () => {
       </nav>
 
       {/* Hero */}
-      <main className="flex-1 flex flex-col items-center justify-center gap-6 px-4 pb-24 min-h-screen pt-24">
+      <main className="relative flex-1 flex flex-col items-center justify-center gap-6 px-4 pb-24 min-h-screen pt-24 bg-dots">
+        <HeroDoodles />
         <DraggableText cursorLabel="You">
           <p className="font-mono text-sm tracking-[0.3em] uppercase text-muted-foreground text-center">
             Navigating the unknown, pixel by pixel.
