@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 
 const socials = [
   { name: "GitHub", url: "https://github.com", icon: "github" },
