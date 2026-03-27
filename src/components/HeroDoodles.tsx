@@ -2,7 +2,7 @@ import DraggableDoodle from "./DraggableDoodle";
 
 const HeroDoodles = () => {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-20">
       {/* React sketch icon - top left */}
       <div className="absolute top-[15%] left-[8%] pointer-events-auto">
         <DraggableDoodle floatDelay={0}>
