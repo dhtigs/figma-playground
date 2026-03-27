@@ -140,6 +140,7 @@ const DraggableDoodle = ({ children, className = "", floatDelay = 0 }: Draggable
         className={`cursor-grab active:cursor-grabbing animate-float-gentle ${className}`}
         style={{
           ...floatStyle,
+          touchAction: "none",
           transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
           transition: isSnappingBack ? "transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)" : (isDragging || isResizing ? "none" : undefined),
         }}

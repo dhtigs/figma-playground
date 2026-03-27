@@ -1,65 +1,76 @@
 import { useState, useEffect, useCallback } from "react";
 
-const EDITS = [
-  { id: "color", label: "color", target: "heading", action: "Changing heading color...", duration: 2200 },
-  { id: "font", label: "font-size", target: "subtitle", action: "Adjusting font size...", duration: 1800 },
-  { id: "text", label: "text", target: "tagline", action: "Editing tagline copy...", duration: 2500 },
-  { id: "spacing", label: "padding", target: "layout", action: "Tweaking spacing...", duration: 1600 },
-  { id: "border", label: "border-radius", target: "badge", action: "Rounding corners...", duration: 2000 },
-];
-
-const CODE_SNIPPETS = [
-  'font-weight: 800;',
-  'letter-spacing: -0.05em;',
-  'color: hsl(80, 85%, 65%);',
-  'text-transform: uppercase;',
-  'opacity: 0.9;',
-  'padding: 2rem 0;',
-  'border: 1px solid rgba(255,255,255,0.1);',
+const ACTIONS = [
+  { action: "Changing heading color...", snippet: 'color: hsl(80, 85%, 65%);' },
+  { action: "Adjusting font size...", snippet: 'font-size: clamp(4rem, 12vw, 12rem);' },
+  { action: "Editing tagline copy...", snippet: 'letter-spacing: -0.05em;' },
+  { action: "Tweaking spacing...", snippet: 'padding: 2rem 0;' },
+  { action: "Rounding corners...", snippet: 'border-radius: 12px;' },
+  { action: "Moving element...", snippet: '', isDrag: true },
+  { action: "Repositioning block...", snippet: '', isDrag: true },
+  { action: "Dragging component...", snippet: '', isDrag: true },
 ];
 
 const LiveEditSimulation = () => {
   const [cursorPos, setCursorPos] = useState({ x: 70, y: 30 });
   const [typing, setTyping] = useState("");
-  const [typingFull, setTypingFull] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipText, setTooltipText] = useState("");
-  const [phase, setPhase] = useState<"move" | "type" | "pause">("pause");
+  const [dragBox, setDragBox] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
 
   const runEdit = useCallback(() => {
-    const edit = EDITS[Math.floor(Math.random() * EDITS.length)];
-    const snippet = CODE_SNIPPETS[Math.floor(Math.random() * CODE_SNIPPETS.length)];
+    const action = ACTIONS[Math.floor(Math.random() * ACTIONS.length)];
 
-    // Phase 1: Move cursor
     const newX = 15 + Math.random() * 70;
     const newY = 20 + Math.random() * 60;
-    setPhase("move");
     setCursorPos({ x: newX, y: newY });
     setShowTooltip(false);
+    setDragBox(null);
 
-    setTimeout(() => {
-      // Phase 2: Show tooltip and type
-      setPhase("type");
-      setShowTooltip(true);
-      setTooltipText(edit.action);
-      setTypingFull(snippet);
-      setTyping("");
+    if (action.isDrag) {
+      // Drag simulation
+      setTimeout(() => {
+        setShowTooltip(true);
+        setTooltipText(action.action);
+        const boxW = 80 + Math.random() * 60;
+        const boxH = 30 + Math.random() * 30;
+        setDragBox({ x: newX, y: newY, w: boxW, h: boxH });
 
-      let i = 0;
-      const typeInterval = setInterval(() => {
-        i++;
-        setTyping(snippet.slice(0, i));
-        if (i >= snippet.length) {
-          clearInterval(typeInterval);
-          setTimeout(() => {
-            setPhase("pause");
-            setShowTooltip(false);
-            setTyping("");
-          }, 1200);
-        }
-      }, 60);
-    }, 800);
+        // Move to new position
+        const endX = 15 + Math.random() * 70;
+        const endY = 20 + Math.random() * 60;
+        setTimeout(() => {
+          setCursorPos({ x: endX, y: endY });
+          setDragBox({ x: endX, y: endY, w: boxW, h: boxH });
+        }, 400);
+
+        // Snap back / release
+        setTimeout(() => {
+          setDragBox(null);
+          setShowTooltip(false);
+        }, 2200);
+      }, 800);
+    } else {
+      // Type simulation
+      setTimeout(() => {
+        setShowTooltip(true);
+        setTooltipText(action.action);
+        setTyping("");
+        let i = 0;
+        const typeInterval = setInterval(() => {
+          i++;
+          setTyping(action.snippet.slice(0, i));
+          if (i >= action.snippet.length) {
+            clearInterval(typeInterval);
+            setTimeout(() => {
+              setShowTooltip(false);
+              setTyping("");
+            }, 1200);
+          }
+        }, 60);
+      }, 800);
+    }
   }, []);
 
   useEffect(() => {
@@ -68,7 +79,6 @@ const LiveEditSimulation = () => {
     return () => { clearInterval(interval); clearTimeout(timeout); };
   }, [runEdit]);
 
-  // Blink cursor
   useEffect(() => {
     const blink = setInterval(() => setShowCursor(c => !c), 530);
     return () => clearInterval(blink);
@@ -76,30 +86,47 @@ const LiveEditSimulation = () => {
 
   return (
     <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-      {/* Fake cursor */}
+      {/* Drag selection box */}
+      {dragBox && (
+        <div
+          className="absolute border-2 border-primary/60 bg-primary/5 rounded-sm transition-all duration-700 ease-out"
+          style={{
+            left: `${dragBox.x}%`,
+            top: `${dragBox.y}%`,
+            width: `${dragBox.w}px`,
+            height: `${dragBox.h}px`,
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          {/* Corner handles */}
+          {["-top-1 -left-1", "-top-1 -right-1", "-bottom-1 -left-1", "-bottom-1 -right-1"].map((pos, i) => (
+            <div key={i} className={`absolute ${pos} w-2 h-2 bg-primary rounded-full`} />
+          ))}
+        </div>
+      )}
+
+      {/* Cursor */}
       <div
         className="absolute transition-all duration-700 ease-out"
         style={{ left: `${cursorPos.x}%`, top: `${cursorPos.y}%` }}
       >
-        {/* Cursor arrow */}
         <svg width="16" height="20" viewBox="0 0 16 20" className="drop-shadow-lg" fill="none">
           <path d="M1 1L1 17L5.5 12.5L9.5 19L12 17.5L8 11L14 10L1 1Z" fill="hsl(var(--primary))" stroke="hsl(var(--primary-foreground))" strokeWidth="1" />
         </svg>
-
-        {/* Cursor label */}
         <div className="absolute top-5 left-3 px-2 py-0.5 bg-primary text-primary-foreground text-[10px] font-mono rounded-sm whitespace-nowrap shadow-md">
           Andy
         </div>
 
-        {/* Tooltip with typing */}
         {showTooltip && (
           <div className="absolute top-10 left-0 animate-fade-in">
             <div className="px-3 py-2 bg-card/95 backdrop-blur-sm border border-border rounded-md shadow-xl max-w-[220px]">
               <p className="text-[10px] text-muted-foreground font-mono mb-1">{tooltipText}</p>
-              <div className="font-mono text-[11px] text-primary">
-                {typing}
-                {showCursor && <span className="text-primary">|</span>}
-              </div>
+              {typing && (
+                <div className="font-mono text-[11px] text-primary">
+                  {typing}
+                  {showCursor && <span className="text-primary">|</span>}
+                </div>
+              )}
             </div>
           </div>
         )}
